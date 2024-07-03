@@ -43,25 +43,17 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(spacing: 30) {
+                VStack {
                     recordingSection
-                    
-                    Divider()
-                    
                     transformationSection
-                    
-                    Divider()
-                    
                     debugSection
-                    
                     if !transformedText.isEmpty {
-                        Divider()
                         transformedTextView
                     }
                 }
                 .padding()
+                .navigationTitle("JustTalk")
             }
-            .navigationTitle("JustTalk")
         }
         .onAppear {
             setupAudioSession()
@@ -69,30 +61,33 @@ struct ContentView: View {
     }
     
     var recordingSection: some View {
-        VStack(spacing: 20) {
-            recordButton
-            
-            if isRecording || hasRecording {
-                pauseResumeButton
+        Section {
+            HStack {
+                Spacer()
+                VStack(spacing: 20) {
+                    recordButton
+                    pauseResumeButton
+                }
+                Spacer()
             }
-            
             audioFileInfo
         }
     }
     
     var transformationSection: some View {
-        VStack(spacing: 20) {
+        Section(header: Text("Transformation Options").font(.headline)) {
             transformationPicker
             transformButton
         }
     }
     
     var debugSection: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Debug Information")
-                .font(.headline)
+        DisclosureGroup("Debug Information") {
             debugInfo
         }
+        .padding()
+        .background(Color.gray.opacity(0.1))
+        .cornerRadius(10)
     }
     
     var recordButton: some View {
@@ -105,20 +100,29 @@ struct ContentView: View {
                     .foregroundColor(isRecording ? .red : .blue)
                 Text(recordingStatusText)
                     .font(.subheadline)
+                    .foregroundColor(Color.gray)
             }
+            .padding()
         }
     }
     
     var pauseResumeButton: some View {
-        Button(action: togglePause) {
-            Text(isPaused ? "Resume" : "Pause")
-                .padding(.horizontal, 30)
-                .padding(.vertical, 15)
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
+        Group {
+            if isRecording || hasRecording {
+                Button(action: togglePause) {
+                    Text(isPaused ? "Resume" : "Pause")
+                        .padding(.horizontal, 30)
+                        .padding(.vertical, 15)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .disabled(!isRecording)
+                .transition(.opacity)
+            } else {
+                EmptyView()
+            }
         }
-        .disabled(!isRecording)
     }
     
     var debugInfo: some View {
@@ -143,14 +147,13 @@ struct ContentView: View {
     
     var transformationPicker: some View {
         VStack {
-            Text("Choose Transformation")
-                .font(.headline)
             Picker("Transformation", selection: $selectedTransformation) {
                 ForEach(0..<transformations.count) { index in
                     Text(transformations[index]).tag(index)
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
+            .padding()
         }
     }
     
@@ -173,6 +176,7 @@ struct ContentView: View {
                 }
             }
         )
+        .padding(.top, 10)
     }
     
     var transformedTextView: some View {
@@ -210,7 +214,6 @@ struct ContentView: View {
         isPaused.toggle()
         if isPaused {
             audioRecorder?.pause()
-            
             DispatchQueue.main.async {
                 self.isPaused = true
                 self.isRecording = false
@@ -338,7 +341,6 @@ struct ContentView: View {
         let fullPrompt = prompt + recordedText
         
         let query = ChatQuery(messages: [.init(role: .user, content: fullPrompt)!], model: .gpt4_o, temperature: 0.7)
-    
         
         var streamedResponse = ""
         
@@ -366,7 +368,7 @@ struct ContentView: View {
         case 2:
             return "Transform the following text into a concise, clear summary: "
         case 3:
-            return "Transform the following text into a concise, clear story with a smooth transitions, that sounds good when spoken out loud: "
+            return "Transform the following text into a concise, clear story with a smooth transition, that sounds good when spoken out loud: "
         default:
             return "Transform the following text: "
         }
