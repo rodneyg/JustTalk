@@ -14,6 +14,7 @@
 		478408702C34A14700FEE9CF /* JustTalkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4784086F2C34A14700FEE9CF /* JustTalkTests.swift */; };
 		4784087A2C34A14700FEE9CF /* JustTalkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478408792C34A14700FEE9CF /* JustTalkUITests.swift */; };
 		4784087C2C34A14700FEE9CF /* JustTalkUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4784087B2C34A14700FEE9CF /* JustTalkUITestsLaunchTests.swift */; };
+		4784088A2C34A16A00FEE9CF /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 478408892C34A16A00FEE9CF /* OpenAI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		478408752C34A14700FEE9CF /* JustTalkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustTalkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		478408792C34A14700FEE9CF /* JustTalkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustTalkUITests.swift; sourceTree = "<group>"; };
 		4784087B2C34A14700FEE9CF /* JustTalkUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustTalkUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4784088B2C34A39500FEE9CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4784088A2C34A16A00FEE9CF /* OpenAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +98,7 @@
 		4784085C2C34A14600FEE9CF /* JustTalk */ = {
 			isa = PBXGroup;
 			children = (
+				4784088B2C34A39500FEE9CF /* Info.plist */,
 				4784085D2C34A14600FEE9CF /* JustTalkApp.swift */,
 				4784085F2C34A14600FEE9CF /* ContentView.swift */,
 				478408612C34A14700FEE9CF /* Assets.xcassets */,
@@ -145,6 +149,9 @@
 			dependencies = (
 			);
 			name = JustTalk;
+			packageProductDependencies = (
+				478408892C34A16A00FEE9CF /* OpenAI */,
+			);
 			productName = JustTalk;
 			productReference = 4784085A2C34A14600FEE9CF /* JustTalk.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +224,9 @@
 				Base,
 			);
 			mainGroup = 478408512C34A14600FEE9CF;
+			packageReferences = (
+				478408882C34A16A00FEE9CF /* XCRemoteSwiftPackageReference "OpenAI" */,
+			);
 			productRefGroup = 4784085B2C34A14600FEE9CF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -424,6 +434,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JustTalk/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -442,7 +453,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rodneygainous.JustTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -462,6 +474,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JustTalk/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -480,7 +493,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rodneygainous.JustTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -617,6 +631,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		478408882C34A16A00FEE9CF /* XCRemoteSwiftPackageReference "OpenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MacPaw/OpenAI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		478408892C34A16A00FEE9CF /* OpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 478408882C34A16A00FEE9CF /* XCRemoteSwiftPackageReference "OpenAI" */;
+			productName = OpenAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 478408522C34A14600FEE9CF /* Project object */;
 }
